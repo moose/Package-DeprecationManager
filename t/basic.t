@@ -18,9 +18,10 @@ use Test::Warn;
     package Foo;
 
     use Package::DeprecationManager -deprecations => {
-        'Foo::foo' => '0.02',
-        'Foo::bar' => '0.03',
-        'Foo::baz' => '1.21',
+        'Foo::foo'  => '0.02',
+        'Foo::bar'  => '0.03',
+        'Foo::baz'  => '1.21',
+        'not a sub' => '1.23',
     };
 
     sub foo {
@@ -33,6 +34,15 @@ use Test::Warn;
 
     sub baz {
         deprecated();
+    }
+
+    sub quux {
+        if ( $_[0] > 5 ) {
+            deprecated(
+                message => 'quux > 5 has been deprecated',
+                feature => 'not a sub',
+            );
+        }
     }
 }
 
@@ -78,7 +88,6 @@ use Test::Warn;
         'no warning for baz with api_version = 0.01';
 }
 
-
 {
     package Quux;
 
@@ -95,6 +104,20 @@ use Test::Warn;
     ::warning_is{ Foo::baz() }
         q{},
         'no warning for baz with api_version = 1.17';
+}
+
+{
+    package Another;
+
+    Foo->import();
+
+    ::warning_is{ Foo::quux(1) }
+        q{},
+        'no warning for quux(1)';
+
+    ::warning_is{ Foo::quux(10) }
+        { carped => 'quux > 5 has been deprecated' },
+        'got a warning for quux(10)';
 }
 
 done_testing();
