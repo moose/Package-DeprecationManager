@@ -1,3 +1,8 @@
-0.01
+0.02    2010-07-12
+
+- Made it possible to deprecate any feature, not just a subroutine or method.
+
+
+0.01    2010-07-12
 
 - First release
