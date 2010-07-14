@@ -44,6 +44,11 @@ use Test::Warn;
             );
         }
     }
+
+    sub varies {
+        deprecated("The varies sub varies: $_[0]");
+    }
+
 }
 
 {
@@ -68,6 +73,18 @@ use Test::Warn;
     ::warning_is{ Foo::bar() } q{}, 'no warning on second call to bar';
 
     ::warning_is{ Foo::baz() } q{}, 'no warning on second call to baz';
+
+    ::warning_is{ Foo::varies(1) }
+        { carped => "The varies sub varies: 1" },
+        'warning for varies sub';
+
+    ::warning_is{ Foo::varies(2) }
+        { carped => "The varies sub varies: 2" },
+        'warning for varies sub with different error';
+
+    ::warning_is{ Foo::varies(1) }
+        q{},
+        'no warning for varies sub with same message as first call';
 }
 
 {
