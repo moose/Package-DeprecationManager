@@ -1,3 +1,9 @@
+0.04    2010-07-14
+
+- A single feature will now warn more than once if each warning consists of a
+  different error message.
+
+
 0.03    2010-07-14
 
 - Added an -ignore parameter when importing Package::DeprecationManager. This
