@@ -1,3 +1,10 @@
+0.03    2010-07-14
+
+- Added an -ignore parameter when importing Package::DeprecationManager. This
+  lets you explicitly ignore packages in the call stack when determining where
+  a deprecated feature was called.
+
+
 0.02    2010-07-12
 
 - Made it possible to deprecate any feature, not just a subroutine or method.
