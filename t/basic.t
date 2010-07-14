@@ -120,4 +120,48 @@ use Test::Warn;
         'got a warning for quux(10)';
 }
 
+
+{
+    package Dep;
+
+    use Package::DeprecationManager -deprecations => {
+        'foo' => '1.00',
+        },
+        -ignore => [ 'My::Foo', 'My::Bar' ];
+
+    sub foo {
+        deprecated('foo is deprecated');
+    }
+}
+
+{
+    package My::Foo;
+
+    sub foo { Dep::foo() }
+}
+
+{
+    package My::Bar;
+
+    sub foo { My::Foo::foo() }
+}
+
+{
+    package My::Baz;
+
+    ::warning_like{ My::Bar::foo() }
+        qr/^foo is deprecated at t.basic\.t line \d+/,
+        'deprecation warning for call to My::Bar::foo()';
+}
+
+{
+    package My::Baz;
+
+    Dep->import( -api_version => '0.8' );
+
+    ::warning_is{ My::Bar::foo() }
+        q{},
+        'no wanrning when calling My::Bar::foo()';
+}
+
 done_testing();

@@ -18,7 +18,7 @@ sub import {
     my %registry;
 
     my $import = _build_import( \%registry );
-    my $warn = _build_warn( \%registry, $args{-deprecations} );
+    my $warn = _build_warn( \%registry, $args{-deprecations}, $args{-ignore} );
 
     my $caller = caller();
 
@@ -60,6 +60,9 @@ sub _build_import {
 sub _build_warn {
     my $registry      = shift;
     my $deprecated_at = shift;
+    my $ignore        = shift;
+
+    my %ignore = map { $_ => 1 } @{ $ignore || [] };
 
     my %warned;
 
@@ -67,6 +70,18 @@ sub _build_warn {
         my %args = @_ < 2 ? ( message => shift ) : @_;
 
         my ( $package, undef, undef, $sub ) = caller(1);
+
+        my $skipped = 0;
+        if ( keys %ignore ) {
+            while ( defined $package && $ignore{$package} ) {
+                # We want to start two levels back, since we already looked
+                # one level back and found an internal package.
+                $package = caller($skipped++ + 2);
+                $skipped++;
+            }
+        }
+
+        $package = 'unknown package' unless defined $package;
 
         unless ( defined $args{feature} ) {
             $args{feature} = $sub;
@@ -83,20 +98,21 @@ sub _build_warn {
 
         return if $warned{$package}{ $args{feature} };
 
+        my $msg;
         if ( defined $args{message} ) {
-            @_ = $args{message};
+            $msg = $args{message};
         }
         else {
-            my $msg = "$args{feature} has been deprecated";
+            $msg = "$args{feature} has been deprecated";
             $msg .= " since version $deprecated_at"
                 if defined $deprecated_at;
-
-            @_ = $msg;
         }
 
         $warned{$package}{ $args{feature} } = 1;
 
-        goto &Carp::cluck;
+        local $Carp::CarpLevel = $Carp::CarpLevel + 1 + $skipped;
+
+        Carp::cluck($msg);
     };
 }
 
@@ -161,6 +177,12 @@ In many cases, you can simply use the fully qualified name of a subroutine or
 method as the feature name. This works for cases where the whole subroutine is
 deprecated. However, the feature names can be any string. This is useful if
 you don't want to deprecate an entire subroutine, just a certain usage.
+
+You can also provide an optional array reference in the C<-ignore>
+parameter. This is a list of package names to ignore when looking at the stack
+to figure out what code used the deprecated feature. This should be packages
+in your distribution that can appear on the call stack when a deprecated
+feature is used.
 
 As part of the import process, C<Package::DeprecationManager> will export two
 subroutines into its caller. It proves an C<import()> sub for the caller and a
