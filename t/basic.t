@@ -168,10 +168,24 @@ use Test::Requires {
 }
 
 {
+    package Dep3;
+
+    use Package::DeprecationManager -deprecations => {
+        'baz' => '1.00',
+        },
+        -ignore => [ qr/My::Package[12]/ ];
+
+    sub baz {
+        deprecated('baz is deprecated');
+    }
+}
+
+{
     package My::Package1;
 
     sub foo { Dep::foo() }
     sub bar { Dep2::bar() }
+    sub baz { Dep3::baz() }
 }
 
 {
@@ -179,18 +193,23 @@ use Test::Requires {
 
     sub foo { My::Package1::foo() }
     sub bar { My::Package1::bar() }
+    sub baz { My::Package1::baz() }
 }
 
 {
     package My::Baz;
 
+    ::warning_like{ My::Package1::bar() }
+        qr/^bar is deprecated at t.basic\.t line \d+/,
+        'deprecation warning for call to My::Package1::bar()';
+
     ::warning_like{ My::Package2::foo() }
         qr/^foo is deprecated at t.basic\.t line \d+/,
         'deprecation warning for call to My::Package2::foo()';
 
-    ::warning_like{ My::Package1::bar() }
-        qr/^bar is deprecated at t.basic\.t line \d+/,
-        'deprecation warning for call to My::Package1::bar()';
+    ::warning_like{ My::Package1::baz() }
+        qr/^baz is deprecated at t.basic\.t line \d+/,
+        'deprecation warning for call to My::Package2::foo()';
 }
 
 {

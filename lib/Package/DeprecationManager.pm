@@ -4,6 +4,7 @@ use strict;
 use warnings;
 
 use Carp qw( croak );
+use List::MoreUtils qw( any );
 use Params::Util qw( _HASH );
 use Sub::Install;
 
@@ -62,7 +63,8 @@ sub _build_warn {
     my $deprecated_at = shift;
     my $ignore        = shift;
 
-    my %ignore = map { $_ => 1 } @{ $ignore || [] };
+    my %ignore = map { $_ => 1 } grep { !ref } @{ $ignore || [] };
+    my @ignore_res = grep {ref} @{ $ignore || [] };
 
     my %warned;
 
@@ -71,12 +73,13 @@ sub _build_warn {
 
         my ( $package, undef, undef, $sub ) = caller(1);
 
-        # We want to start two levels back, since we already looked
-        # one level back and found an internal package.
         my $skipped = 1;
+
         if ( keys %ignore ) {
-            while ( defined $package && $ignore{$package} ) {
-                $package = caller($skipped++);
+            while ( defined $package
+                && ( $ignore{$package} || any { $package =~ $_ } @ignore_res )
+                ) {
+                $package = caller( $skipped++ );
             }
         }
 
@@ -180,10 +183,11 @@ deprecated. However, the feature names can be any string. This is useful if
 you don't want to deprecate an entire subroutine, just a certain usage.
 
 You can also provide an optional array reference in the C<-ignore>
-parameter. This is a list of package names to ignore when looking at the stack
-to figure out what code used the deprecated feature. This should be packages
-in your distribution that can appear on the call stack when a deprecated
-feature is used.
+parameter.
+
+The values to be ignored can be package names or regular expressions (made
+with C<qr//>).  Use this to ignore packages in your distribution that can
+appear on the call stack when a deprecated feature is used.
 
 As part of the import process, C<Package::DeprecationManager> will export two
 subroutines into its caller. It provides an C<import()> sub for the caller and a
