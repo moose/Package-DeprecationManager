@@ -144,7 +144,7 @@ use Test::Warn;
     use Package::DeprecationManager -deprecations => {
         'foo' => '1.00',
         },
-        -ignore => [ 'My::Foo', 'My::Bar' ];
+        -ignore => [ 'My::Package1', 'My::Package2' ];
 
     sub foo {
         deprecated('foo is deprecated');
@@ -152,23 +152,42 @@ use Test::Warn;
 }
 
 {
-    package My::Foo;
+    package Dep2;
 
-    sub foo { Dep::foo() }
+    use Package::DeprecationManager -deprecations => {
+        'bar' => '1.00',
+        },
+        -ignore => [ 'My::Package2' ];
+
+    sub bar {
+        deprecated('bar is deprecated');
+    }
 }
 
 {
-    package My::Bar;
+    package My::Package1;
 
-    sub foo { My::Foo::foo() }
+    sub foo { Dep::foo() }
+    sub bar { Dep2::bar() }
+}
+
+{
+    package My::Package2;
+
+    sub foo { My::Package1::foo() }
+    sub bar { My::Package1::bar() }
 }
 
 {
     package My::Baz;
 
-    ::warning_like{ My::Bar::foo() }
+    ::warning_like{ My::Package2::foo() }
         qr/^foo is deprecated at t.basic\.t line \d+/,
-        'deprecation warning for call to My::Bar::foo()';
+        'deprecation warning for call to My::Package2::foo()';
+
+    ::warning_like{ My::Package1::bar() }
+        qr/^bar is deprecated at t.basic\.t line \d+/,
+        'deprecation warning for call to My::Package1::bar()';
 }
 
 {
@@ -176,9 +195,9 @@ use Test::Warn;
 
     Dep->import( -api_version => '0.8' );
 
-    ::warning_is{ My::Bar::foo() }
+    ::warning_is{ My::Package2::foo() }
         q{},
-        'no wanrning when calling My::Bar::foo()';
+        'no warning when calling My::Package2::foo()';
 }
 
 done_testing();
