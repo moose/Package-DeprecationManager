@@ -1,3 +1,11 @@
+0.05    2010-10-14
+
+- Fixed what looked like a bug in -ignore handling, although I couldn't seem
+  to write a test that triggered it.
+
+- Removed hard dep on Test::Warn for the benefit of Moose.
+
+
 0.04    2010-07-14
 
 - A single feature will now warn more than once if each warning consists of a
