@@ -109,6 +109,8 @@ sub _build_warn {
 
         $warned{$package}{ $args{feature} }{$msg} = 1;
 
+        # We skip at least two levels. One for this anon sub, and one for the
+        # sub calling it.
         local $Carp::CarpLevel = $Carp::CarpLevel + $skipped;
 
         Carp::cluck($msg);
