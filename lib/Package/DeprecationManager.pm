@@ -71,13 +71,12 @@ sub _build_warn {
 
         my ( $package, undef, undef, $sub ) = caller(1);
 
-        my $skipped = 0;
+        # We want to start two levels back, since we already looked
+        # one level back and found an internal package.
+        my $skipped = 1;
         if ( keys %ignore ) {
             while ( defined $package && $ignore{$package} ) {
-                # We want to start two levels back, since we already looked
-                # one level back and found an internal package.
-                $package = caller($skipped++ + 2);
-                $skipped++;
+                $package = caller($skipped++);
             }
         }
 
@@ -110,7 +109,7 @@ sub _build_warn {
 
         $warned{$package}{ $args{feature} }{$msg} = 1;
 
-        local $Carp::CarpLevel = $Carp::CarpLevel + 1 + $skipped;
+        local $Carp::CarpLevel = $Carp::CarpLevel + $skipped;
 
         Carp::cluck($msg);
     };
@@ -185,7 +184,7 @@ in your distribution that can appear on the call stack when a deprecated
 feature is used.
 
 As part of the import process, C<Package::DeprecationManager> will export two
-subroutines into its caller. It proves an C<import()> sub for the caller and a
+subroutines into its caller. It provides an C<import()> sub for the caller and a
 C<deprecated()> sub.
 
 The C<import()> sub allows callers of I<your> class to specify an C<-api_version>
