@@ -3,7 +3,10 @@ use warnings;
 
 use Test::Exception;
 use Test::More;
-use Test::Warn;
+
+use Test::Requires {
+    'Test::Warn' => '0.21',
+};
 
 {
     throws_ok {
