@@ -75,7 +75,7 @@ sub _build_warn {
 
         my $skipped = 1;
 
-        if ( keys %ignore ) {
+        if ( @ignore_res || keys %ignore ) {
             while ( defined $package
                 && ( $ignore{$package} || any { $package =~ $_ } @ignore_res )
                 ) {
