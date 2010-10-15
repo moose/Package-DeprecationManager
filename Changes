@@ -1,3 +1,8 @@
+0.08    2010-10-15
+
+- Include Test::Requires in prereq list. Reported by Todd Rinaldo. RT #62173.
+
+
 0.07    2010-10-15
 
 - The use of regular expressions in ignores didn't really work in 0.06.
