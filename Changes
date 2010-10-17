@@ -1,3 +1,9 @@
+0.09    2010-10-17
+
+- Added a compilation test, because otherwise all test files could not end up
+  doing skip_all, which may make smokers and test harnesses unhappy.
+
+
 0.08    2010-10-15
 
 - Include Test::Requires in prereq list. Reported by Todd Rinaldo. RT #62173.
