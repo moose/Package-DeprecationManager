@@ -1,7 +1,8 @@
+0.10    2010-10-25
 
-NEXT
+- The test suite now uses Test::Fatal instead of Test::Exception. (Karen
+  Etheridge)
 
-- The test suite now uses Test::Fatal instead of Test::Exception.
 
 0.09    2010-10-17
 
