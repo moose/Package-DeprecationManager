@@ -1,3 +1,8 @@
+
+NEXT
+
+- The test suite now uses Test::Fatal instead of Test::Exception.
+
 0.09    2010-10-17
 
 - Added a compilation test, because otherwise all test files could not end up
