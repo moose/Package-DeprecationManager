@@ -5,7 +5,7 @@ use warnings;
 
 use Carp qw( croak );
 use List::MoreUtils qw( any );
-use Params::Util qw( _HASH );
+use Params::Util qw( _HASH0 );
 use Sub::Install;
 
 sub import {
@@ -14,7 +14,7 @@ sub import {
 
     croak
         'You must provide a hash reference -deprecations parameter when importing Package::DeprecationManager'
-        unless $args{-deprecations} && _HASH( $args{-deprecations} );
+        unless $args{-deprecations} && _HASH0( $args{-deprecations} );
 
     my %registry;
 
