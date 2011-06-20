@@ -1,3 +1,6 @@
+{{$NEXT}}
+
+
 0.10    2010-10-25
 
 - The test suite now uses Test::Fatal instead of Test::Exception. (Karen
