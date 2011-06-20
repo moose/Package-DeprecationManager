@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+- Allow an empty hash for the -deprecations parameter.
+
 
 0.10    2010-10-25
 
