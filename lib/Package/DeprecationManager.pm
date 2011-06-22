@@ -167,7 +167,7 @@ __END__
 
   My::Class->new()->foo(); # warns
   My::Class->new()->bar(); # does not warn
-  My::Class->new()->far(); # does not warn again
+  My::Class->new()->bar(); # does not warn again
 
 =head1 DESCRIPTION
 
