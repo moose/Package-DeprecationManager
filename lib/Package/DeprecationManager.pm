@@ -213,8 +213,8 @@ C<caller()> to identify its caller, using its fully qualified subroutine name.
 
 A given deprecation warning is only issued once for a given package. This
 module tracks this based on both the feature name I<and> the error message
-itself. This means that if you provide severaldifferent error messages for the
-same feature, all of those errors will appear.
+itself. This means that if you provide several different error messages for
+the same feature, all of those errors will appear.
 
 =head1 BUGS
 
