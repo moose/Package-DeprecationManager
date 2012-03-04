@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.12     2012-03-04
+
 - Fix tests to pass with Carp 1.25. Reported by Andreas Koenig. RT #75520.
 
 
