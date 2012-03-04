@@ -1,8 +1,8 @@
 use strict;
 use warnings;
 
-use Test::More;
 use Test::Fatal;
+use Test::More 0.88;
 
 use Test::Requires {
     'Test::Output' => '0.16',
