@@ -187,7 +187,7 @@ use Test::Requires {
     package My::Baz;
 
     ::stderr_like{ My::Package2::foo() }
-        qr/^foo is deprecated at t.basic\.t line \d+\s+My::Baz/,
+        qr/^foo is deprecated at t.basic\.t line \d+\.?\s+My::Baz/,
         'deprecation warning for call to My::Package2::foo() and mentions My::Baz but not My::Package[12]';
 
     ::stderr_is{ My::Package2::foo() }
@@ -199,7 +199,7 @@ use Test::Requires {
         'no deprecation warning for call to My::Package1::foo()';
 
     ::stderr_like{ My::Package2::bar() }
-        qr/^bar is deprecated at t.basic\.t line \d+\s+My::Baz/,
+        qr/^bar is deprecated at t.basic\.t line \d+\.?\s+My::Baz/,
         'deprecation warning for call to My::Package2::foo() and mentions My::Baz but not My::Package[12]';
 
     ::stderr_is{ My::Package2::bar() }
@@ -211,7 +211,7 @@ use Test::Requires {
     package My::Quux;
 
     ::stderr_like{ My::Package1::foo() }
-        qr/^foo is deprecated at t.basic\.t line \d+\s+My::Quux/,
+        qr/^foo is deprecated at t.basic\.t line \d+\.?\s+My::Quux/,
         'deprecation warning for call to My::Package1::foo() and mentions My::Quux but not My::Package[12]';
 
     ::stderr_is{ My::Package1::foo() }
