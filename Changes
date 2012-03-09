@@ -1,6 +1,7 @@
 {{$NEXT}}
 
-- Fix dist.ini to not add Test::Spelling as a requirement.
+- Fix dist.ini to not add Test::Spelling as a requirement. (Tomas Doran)
+
 
 0.12     2012-03-04
 
