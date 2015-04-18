@@ -93,12 +93,12 @@ sub _build_warn {
 
         my $compat_version = $registry->{$package};
 
-        my $deprecated_at = $deprecated_at->{ $args{feature} };
+        my $at = $deprecated_at->{ $args{feature} };
 
         return
             if defined $compat_version
                 && defined $deprecated_at
-                && $compat_version lt $deprecated_at;
+                && $compat_version lt $at;
 
         my $msg;
         if ( defined $args{message} ) {
@@ -106,8 +106,8 @@ sub _build_warn {
         }
         else {
             $msg = "$args{feature} has been deprecated";
-            $msg .= " since version $deprecated_at"
-                if defined $deprecated_at;
+            $msg .= " since version $at"
+                if defined $at;
         }
 
         return if $warned{$package}{ $args{feature} }{$msg};
