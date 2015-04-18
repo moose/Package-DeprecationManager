@@ -21,7 +21,8 @@ sub import {
     my %registry;
 
     my $import = _build_import( \%registry );
-    my $warn = _build_warn( \%registry, $args{-deprecations}, $args{-ignore} );
+    my $warn
+        = _build_warn( \%registry, $args{-deprecations}, $args{-ignore} );
 
     my $caller = caller();
 
@@ -96,9 +97,9 @@ sub _build_warn {
         my $at = $deprecated_at->{ $args{feature} };
 
         return
-            if defined $compat_version
-                && defined $deprecated_at
-                && $compat_version lt $at;
+               if defined $compat_version
+            && defined $deprecated_at
+            && $compat_version lt $at;
 
         my $msg;
         if ( defined $args{message} ) {
