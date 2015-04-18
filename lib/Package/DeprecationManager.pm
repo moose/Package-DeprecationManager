@@ -3,6 +3,8 @@ package Package::DeprecationManager;
 use strict;
 use warnings;
 
+our $VERSION = '0.14';
+
 use Carp qw( croak );
 use List::MoreUtils qw( any );
 use Params::Util qw( _HASH0 );
