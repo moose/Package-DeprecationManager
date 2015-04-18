@@ -197,7 +197,7 @@ C<deprecated()> sub.
 
 The C<import()> sub allows callers of I<your> class to specify an C<-api_version>
 parameter. If this is supplied, then deprecation warnings are only issued for
-deprecations for API versions earlier than the one specified.
+deprecations with API versions earlier than the one specified.
 
 You must call the C<deprecated()> sub in each deprecated subroutine. When
 called, it will issue a warning using C<Carp::cluck()>.
