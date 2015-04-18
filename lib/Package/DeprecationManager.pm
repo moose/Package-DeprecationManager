@@ -6,7 +6,7 @@ use warnings;
 our $VERSION = '0.14';
 
 use Carp qw( croak );
-use List::MoreUtils qw( any );
+use List::Util 1.33 qw( any );
 use Params::Util qw( _HASH0 );
 use Sub::Install;
 

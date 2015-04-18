@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+- Use any() from List::Util 1.33+ instead of List::MoreUtils.
+
+
 0.13     2012-03-09
 
 - Fix dist.ini to not add Test::Spelling as a requirement. (Tomas Doran)

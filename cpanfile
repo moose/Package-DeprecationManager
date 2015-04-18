@@ -1,5 +1,5 @@
 requires "Carp" => "0";
-requires "List::MoreUtils" => "0";
+requires "List::Util" => "1.33";
 requires "Params::Util" => "0";
 requires "Sub::Install" => "0";
 requires "strict" => "0";
