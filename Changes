@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.15     2015-11-13
+
 - Made this module co-operate with existing import() subs in packages that use
   this module, as long as you use this module last.
 
