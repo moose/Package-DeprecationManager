@@ -2,10 +2,7 @@ use strict;
 use warnings;
 
 use Test::More 0.88;
-
-use Test::Requires {
-    'Test::Output' => '0.16',
-};
+use Test::Warnings qw( warnings );
 
 {
     package Foo;
@@ -34,9 +31,9 @@ use Test::Requires {
 
     Foo->import( 'exported', -api_version => '0.01' );
 
-    ::stderr_is(
-        sub { Foo::foo() },
-        q{},
+    ::is_deeply(
+        [ ::warnings { Foo::foo() } ],
+        [],
         'no warning for foo with api_version = 0.01'
     );
 
