@@ -3,7 +3,7 @@ package Package::DeprecationManager;
 use strict;
 use warnings;
 
-our $VERSION = '0.15';
+our $VERSION = '0.16';
 
 use Carp qw( croak );
 use List::Util 1.33 qw( any );
