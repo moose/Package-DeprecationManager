@@ -63,6 +63,7 @@ sub _build_import {
         my @args;
 
         my $api_version;
+        ## no critic (ControlStructures::ProhibitCStyleForLoops)
         for ( my $i = 0; $i < @_; $i++ ) {
             if ( $_[$i] eq '-api_version' || $_[$i] eq '-compatible' ) {
                 $api_version = $_[ ++$i ];
@@ -71,6 +72,7 @@ sub _build_import {
                 push @args, $_[$i];
             }
         }
+        ## use critic
 
         my $caller = caller();
         $registry->{$caller} = $api_version

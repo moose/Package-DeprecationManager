@@ -4,6 +4,8 @@ use warnings;
 use Test::More 0.88;
 use Test::Warnings qw( warnings );
 
+## no critic (Modules::ProhibitMultiplePackages)
+
 {
     package Foo;
 
