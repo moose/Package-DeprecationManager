@@ -1,5 +1,9 @@
 {{$NEXT}}
 
+- Made this module co-operate with existing import() subs in packages that use
+  this module, as long as you use this module last.
+
+
 0.14     2015-04-18
 
 - Use any() from List::Util 1.33+ instead of List::MoreUtils.
