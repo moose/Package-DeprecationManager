@@ -3,6 +3,8 @@ requires "List::Util" => "1.33";
 requires "Package::Stash" => "0";
 requires "Params::Util" => "0";
 requires "Sub::Install" => "0";
+requires "Sub::Name" => "0";
+requires "namespace::autoclean" => "0";
 requires "strict" => "0";
 requires "warnings" => "0";
 
@@ -32,6 +34,8 @@ on 'develop' => sub {
   requires "Perl::Tidy" => "20140711";
   requires "Pod::Coverage::TrustPod" => "0";
   requires "Test::CPAN::Changes" => "0.19";
+  requires "Test::CPAN::Meta::JSON" => "0.16";
+  requires "Test::CleanNamespaces" => "0.15";
   requires "Test::Code::TidyAll" => "0.24";
   requires "Test::EOL" => "0";
   requires "Test::Mojibake" => "0";
