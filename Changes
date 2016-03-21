@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.16     2016-03-21
+
 - The subs installed into the caller are now named with Sub::Name. This makes
   these subs appear to be part of the caller, as opposed to an import, which
   is what we want, since each installed sub is constructed uniquely for a
