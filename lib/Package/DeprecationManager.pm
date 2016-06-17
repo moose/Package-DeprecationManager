@@ -2,24 +2,24 @@ package Package::DeprecationManager;
 
 use strict;
 use warnings;
-use namespace::autoclean;
 
 our $VERSION = '0.16';
 
-use Carp qw( croak );
-use List::Util 1.33 qw( any );
+use Carp ();
+use List::Util 1.33 ();
 use Package::Stash;
-use Params::Util qw( _HASH0 );
-use Sub::Install;
-use Sub::Name qw( subname );
+use Params::Util ();
+use Sub::Install ();
+use Sub::Name    ();
 
 sub import {
     shift;
     my %args = @_;
 
-    croak
+    Carp::croak
         'You must provide a hash reference -deprecations parameter when importing Package::DeprecationManager'
-        unless $args{-deprecations} && _HASH0( $args{-deprecations} );
+        unless $args{-deprecations}
+        && Params::Util::_HASH0( $args{-deprecations} );
 
     my %registry;
 
@@ -38,7 +38,7 @@ sub import {
 
     Sub::Install::install_sub(
         {
-            code => subname( $caller . '::import', $import ),
+            code => Sub::Name::subname( $caller . '::import', $import ),
             into => $caller,
             as   => 'import',
         }
@@ -46,7 +46,7 @@ sub import {
 
     Sub::Install::install_sub(
         {
-            code => subname( $caller . '::deprecated', $warn ),
+            code => Sub::Name::subname( $caller . '::deprecated', $warn ),
             into => $caller,
             as   => 'deprecated',
         }
@@ -107,8 +107,10 @@ sub _build_warn {
         my $skipped = 1;
 
         if ( @ignore_res || keys %ignore ) {
-            while ( defined $package
-                && ( $ignore{$package} || any { $package =~ $_ } @ignore_res )
+            while (
+                defined $package
+                && ( $ignore{$package}
+                    || List::Util::any { $package =~ $_ } @ignore_res )
                 ) {
                 $package = caller( $skipped++ );
             }

@@ -4,6 +4,9 @@ theme = core + pbp + bugs + maintenance + cosmetic + complexity + security + tes
 
 exclude = Subroutines::ProhibitCallsToUndeclaredSubs
 
+[Subroutines::ProtectPrivateSubs]
+allow = Params::Util::_HASH0
+
 [BuiltinFunctions::ProhibitStringySplit]
 severity = 3
 
