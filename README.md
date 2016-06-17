@@ -4,7 +4,7 @@ Package::DeprecationManager - Manage deprecation warnings for your distribution
 
 # VERSION
 
-version 0.16
+version 0.17
 
 # SYNOPSIS
 

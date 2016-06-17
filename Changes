@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.17     2016-06-17
+
 - Remove use of namespace::autoclean.
 
 
