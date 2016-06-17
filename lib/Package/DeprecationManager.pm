@@ -2,7 +2,6 @@ package Package::DeprecationManager;
 
 use strict;
 use warnings;
-use namespace::autoclean;
 
 our $VERSION = '0.16';
 

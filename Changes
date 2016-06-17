@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+- Remove use of namespace::autoclean.
+
+
 0.16     2016-03-21
 
 - The subs installed into the caller are now named with Sub::Name. This makes
