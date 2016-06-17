@@ -166,13 +166,13 @@ button at [http://www.urth.org/~autarch/fs-donation.html](http://www.urth.org/~a
 
 # AUTHOR
 
-Dave Rolsky &lt;autarch@urth.org>
+Dave Rolsky <autarch@urth.org>
 
 # CONTRIBUTORS
 
-- Jesse Luehrs &lt;doy@tozt.net>
-- Karen Etheridge &lt;ether@cpan.org>
-- Tomas Doran &lt;bobtfish@bobtfish.net>
+- Jesse Luehrs <doy@tozt.net>
+- Karen Etheridge <ether@cpan.org>
+- Tomas Doran <bobtfish@bobtfish.net>
 
 # COPYRIGHT AND LICENCE
 
