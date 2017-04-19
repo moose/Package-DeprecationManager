@@ -5,6 +5,9 @@ program-extensions = pl psgi t
 
 exclude = Subroutines::ProhibitCallsToUndeclaredSubs
 
+[Subroutines::ProtectPrivateSubs]
+allow = Params::Util::_HASH0
+
 [BuiltinFunctions::ProhibitStringySplit]
 severity = 3
 
