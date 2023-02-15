@@ -10,7 +10,7 @@ use List::Util 1.33 qw( any );
 use Package::Stash;
 use Params::Util qw( _HASH0 );
 use Sub::Install;
-use Sub::Name qw( subname );
+use Sub::Util qw( set_subname );
 
 sub import {
     shift;
@@ -37,7 +37,7 @@ sub import {
 
     Sub::Install::install_sub(
         {
-            code => subname( $caller . '::import', $import ),
+            code => set_subname( $caller . '::import', $import ),
             into => $caller,
             as   => 'import',
         }
@@ -45,7 +45,7 @@ sub import {
 
     Sub::Install::install_sub(
         {
-            code => subname( $caller . '::deprecated', $warn ),
+            code => set_subname( $caller . '::deprecated', $warn ),
             into => $caller,
             as   => 'deprecated',
         }

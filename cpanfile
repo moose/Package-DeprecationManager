@@ -6,7 +6,7 @@ requires "List::Util" => "1.33";
 requires "Package::Stash" => "0";
 requires "Params::Util" => "0";
 requires "Sub::Install" => "0";
-requires "Sub::Name" => "0";
+requires "Sub::Util" => "0";
 requires "strict" => "0";
 requires "warnings" => "0";
 
