@@ -169,6 +169,7 @@ Dave Rolsky <autarch@urth.org>
 
 # CONTRIBUTORS
 
+- Aristotle Pagaltzis <pagaltzis@gmx.de>
 - Jesse Luehrs <doy@tozt.net>
 - Karen Etheridge <ether@cpan.org>
 - Tomas Doran <bobtfish@bobtfish.net>
