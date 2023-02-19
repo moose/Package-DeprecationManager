@@ -18,8 +18,6 @@ stages:
 
   - template: templates/helpers/macos.yml@ci-perl-helpers
     parameters:
-      # Previous runs seem to have cached a bad Perl somehow.
-      cache_key: "1"
       debug: true
       use_default_perls: true
 
