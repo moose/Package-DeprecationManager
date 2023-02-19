@@ -93,7 +93,7 @@ sub _build_warn {
     my $deprecated_at = shift;
     my $ignore        = shift;
 
-    my %ignore = map { $_ => 1 } grep { !ref } @{ $ignore || [] };
+    my %ignore     = map  { $_ => 1 } grep { !ref } @{ $ignore || [] };
     my @ignore_res = grep {ref} @{ $ignore || [] };
 
     my %warned;
@@ -106,9 +106,10 @@ sub _build_warn {
         my $skipped = 1;
 
         if ( @ignore_res || keys %ignore ) {
-            while ( defined $package
+            while (
+                defined $package
                 && ( $ignore{$package} || any { $package =~ $_ } @ignore_res )
-                ) {
+            ) {
                 $package = caller( $skipped++ );
             }
         }
@@ -209,23 +210,22 @@ are the version when that feature was deprecated.
 
 In many cases, you can simply use the fully qualified name of a subroutine or
 method as the feature name. This works for cases where the whole subroutine is
-deprecated. However, the feature names can be any string. This is useful if
-you don't want to deprecate an entire subroutine, just a certain usage.
+deprecated. However, the feature names can be any string. This is useful if you
+don't want to deprecate an entire subroutine, just a certain usage.
 
-You can also provide an optional array reference in the C<-ignore>
-parameter.
+You can also provide an optional array reference in the C<-ignore> parameter.
 
-The values to be ignored can be package names or regular expressions (made
-with C<qr//>).  Use this to ignore packages in your distribution that can
-appear on the call stack when a deprecated feature is used.
+The values to be ignored can be package names or regular expressions (made with
+C<qr//>).  Use this to ignore packages in your distribution that can appear on
+the call stack when a deprecated feature is used.
 
 As part of the import process, C<Package::DeprecationManager> will export two
-subroutines into its caller. It provides an C<import()> sub for the caller and a
-C<deprecated()> sub.
+subroutines into its caller. It provides an C<import()> sub for the caller and
+a C<deprecated()> sub.
 
-The C<import()> sub allows callers of I<your> class to specify an C<-api_version>
-parameter. If this is supplied, then deprecation warnings are only issued for
-deprecations with API versions earlier than the one specified.
+The C<import()> sub allows callers of I<your> class to specify an
+C<-api_version> parameter. If this is supplied, then deprecation warnings are
+only issued for deprecations with API versions earlier than the one specified.
 
 You must call the C<deprecated()> sub in each deprecated subroutine. When
 called, it will issue a warning using C<Carp::cluck()>.
@@ -243,14 +243,14 @@ C<caller()> to identify its caller, using its fully qualified subroutine name.
 
 A given deprecation warning is only issued once for a given package. This
 module tracks this based on both the feature name I<and> the error message
-itself. This means that if you provide several different error messages for
-the same feature, all of those errors will appear.
+itself. This means that if you provide several different error messages for the
+same feature, all of those errors will appear.
 
 =head2 Other import() subs
 
-This module works by installing an C<import> sub in any package that uses
-it. If that package I<already> has an C<import> sub, then that C<import> will
-be called after any arguments passed for C<Package::DeprecationManager> are
+This module works by installing an C<import> sub in any package that uses it.
+If that package I<already> has an C<import> sub, then that C<import> will be
+called after any arguments passed for C<Package::DeprecationManager> are
 stripped out. You need to define your C<import> sub before you C<use
 Package::DeprecationManager> to make this work:
 
@@ -277,17 +277,16 @@ If you'd like to thank me for the work I've done on this module, please
 consider making a "donation" to me via PayPal. I spend a lot of free time
 creating free software, and would appreciate any support you'd care to offer.
 
-Please note that B<I am not suggesting that you must do this> in order
-for me to continue working on this particular software. I will
-continue to do so, inasmuch as I have in the past, for as long as it
-interests me.
+Please note that B<I am not suggesting that you must do this> in order for me
+to continue working on this particular software. I will continue to do so,
+inasmuch as I have in the past, for as long as it interests me.
 
 Similarly, a donation made in this way will probably not make me work on this
 software much more, unless I get so many donations that I can consider working
 on free software full time, which seems unlikely at best.
 
-To donate, log into PayPal and send money to autarch@urth.org or use the
-button on this page: L<http://www.urth.org/~autarch/fs-donation.html>
+To donate, log into PayPal and send money to autarch@urth.org or use the button
+on this page: L<http://www.urth.org/~autarch/fs-donation.html>
 
 =head1 CREDITS
 
