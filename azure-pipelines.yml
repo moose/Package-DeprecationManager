@@ -12,7 +12,6 @@ stages:
 
   - template: templates/helpers/linux.yml@ci-perl-helpers
     parameters:
-      coverage: codecov
       debug: true
       test_xt: true
       use_default_perls: true
